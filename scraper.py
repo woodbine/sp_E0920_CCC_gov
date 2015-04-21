@@ -39,21 +39,20 @@ for yrPageLink in yrPageLinks:
         mthPageUrl = 'http://www.cumbria.gov.uk' + mthPageLink.a['href']
         html3 = urllib2.urlopen(mthPageUrl)
         soup3 = BeautifulSoup(html3)
-        print soup3
+        tableBlock = soup3.find('tbody')
+        fileLinks = tableBlock.findAll('a',href=True)
         
-        '''
-        for filePageLink in filePageLinks:
-            
+        for fileLink in fileLinks:
+            fileUrl = fileLink['href']
             if '.csv' in fileUrl:
                 # create the right strings for the new filename
-                title = fileBlock.a.contents[0]
-                title = title.upper()
-                csvYr = title.split(' ')[-1]
-                csvMth = title.split(' ')[-2][:3]
-                csvMth = convert_mth_strings(csvMth);
-                filename = entity_id + "_" + csvYr + "_" + csvMth
-                todays_date = str(datetime.now())
-                scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date})
-
-            print filename
-        '''
+                title = fileLink.contents[0]
+                if 'Trade Suppliers' in title:
+                    title = title.upper()
+                    csvYr = title.split(' ')[-1]
+                    csvMth = title.split(' ')[-2][:3]
+                    csvMth = convert_mth_strings(csvMth);
+                    filename = entity_id + "_" + csvYr + "_" + csvMth
+                    todays_date = str(datetime.now())
+                    scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date})
+                    print filename
