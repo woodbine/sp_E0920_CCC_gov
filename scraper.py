@@ -39,15 +39,15 @@ for yrPageLink in yrPageLinks:
         mthPageUrl = 'http://www.cumbria.gov.uk' + mthPageLink.a['href']
         html3 = urllib2.urlopen(mthPageUrl)
         soup3 = BeautifulSoup(html3)
-        tableBlock = soup3.find('tbody')
+        tableBlock = soup3.find('div',{'class':'ccc-full-width-content'})
+        title = tableBlock.find('h1').contents[0]
         fileLinks = tableBlock.findAll('a',href=True)
         
         for fileLink in fileLinks:
             fileUrl = fileLink['href']
             if '.csv' in fileUrl:
-                # create the right strings for the new filename
-                title = fileLink.contents[0]
-                if 'Trade Suppliers' in title:
+                if 'Trade' in fileLink.contents[0]:
+                    # create the right strings for the new filename
                     print title
                     print fileUrl
                     title = title.upper()
