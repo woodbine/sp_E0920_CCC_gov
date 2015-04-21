@@ -45,9 +45,9 @@ for yrPageLink in yrPageLinks:
         fileLinks = tableBlock.findAll('a',href=True)
         
         for fileLink in fileLinks:
-            fileUrl = fileLink['href']
-            if '.csv' in fileUrl:
-                if 'Trade' in fileLink.contents[0]:
+            fileUrl = 'http://www.cumbria.gov.uk' + fileLink['href']
+            if '.csv' in fileUrl: 
+                if 'Trade' in fileLink.contents[0]: #  make sure file is the trade suppliers file
                     # create the right strings for the new filename
                     title = title.upper()
                     csvYr = title.split(' ')[-1]
