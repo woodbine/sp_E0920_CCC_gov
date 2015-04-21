@@ -49,8 +49,6 @@ for yrPageLink in yrPageLinks:
             if '.csv' in fileUrl:
                 if 'Trade' in fileLink.contents[0]:
                     # create the right strings for the new filename
-                    print title
-                    print fileUrl
                     title = title.upper()
                     csvYr = title.split(' ')[-1]
                     csvMth = title.split(' ')[-2][:3]
