@@ -50,7 +50,6 @@ for yrPageLink in yrPageLinks:
                 if 'Trade' in fileLink.contents[0]:
                     # create the right strings for the new filename
                     title = title.upper()
-                    print title[-18:]
                     csvYr = title.split(' ')[-1]
                     csvMth = title.split(' ')[-2][:3]
                     csvMth = convert_mth_strings(csvMth);
