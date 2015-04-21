@@ -38,7 +38,7 @@ for yrPageLink in yrPageLinks:
     for mthPageLink in mthPageLinks:
         mthPageUrl = 'http://www.cumbria.gov.uk' + mthPageLink.a['href']
         html3 = urllib2.urlopen(mthPageUrl)
-        soup3 = BeautifulSoup(html2)
+        soup3 = BeautifulSoup(html3)
         print soup3
         
         '''
