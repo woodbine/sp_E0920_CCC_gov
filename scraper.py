@@ -49,7 +49,7 @@ for yrPageLink in yrPageLinks:
                 title = fileLink.contents[0]
                 if 'Trade Suppliers' in title:
                     print title
-                    
+                    print fileUrl
                     title = title.upper()
                     csvYr = title.split(' ')[-1]
                     csvMth = title.split(' ')[-2][:3]
