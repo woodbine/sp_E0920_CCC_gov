@@ -28,6 +28,8 @@ yrPageLinks = block.findAll('li')
 
 for yrPageLink in yrPageLinks:
     yrPageUrl = 'http://www.cumbria.gov.uk' + yrPageLink.a['href']
+    print yrPageUrl
+    
     html2 = urllib2.urlopen(yrPageUrl)
     soup2 = BeautifulSoup(html2)
     subBlock = soup2.find('ul', {'class':'navsublist'})
