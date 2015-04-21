@@ -2,8 +2,6 @@
 
 import scraperwiki
 import urllib2
-import urllib
-import urlparse
 from datetime import datetime
 from bs4 import BeautifulSoup
 
@@ -25,34 +23,35 @@ html = urllib2.urlopen(url)
 soup = BeautifulSoup(html)
 
 # find all entries with the required class
-blocks = soup.findAll('div', {'class': 'document-link'})
+block = soup.find('ul',{'class':'navsublist'})
+yrPageLinks = block.findAll('li')
 
-for block in blocks:
-
-    link = block.a['href']
-    parsed_link = urlparse.urlsplit(link.encode('utf8'))
-    parsed_link = parsed_link._replace(path=urllib.quote(parsed_link.path))
-    encoded_link = parsed_link.geturl()
-    pageUrl = encoded_link.replace("/citizen-home", "https://www.barnet.gov.uk/citizen-home")
-
-    html2 = urllib2.urlopen(pageUrl)
+for yrPageLink in yrPageLinks:
+    yrPageUrl = 'http://www.cumbria.gov.uk' + yrPageLink.a['href']
+    html2 = urllib2.urlopen(yrPageUrl)
     soup2 = BeautifulSoup(html2)
-    ts = soup2.find('div', {'class': 'text-section'})
-    fileBlocks = ts.findAll('li')
+    subBlock = soup2.find('ul', {'class':'navsublist'})
+    mthPageLinks = subBlock.findAll('li')
 
-    for fileBlock in fileBlocks:
-        fileUrl = fileBlock.a['href']
-        fileUrl = fileUrl.replace("/dam", "https://www.barnet.gov.uk/dam")
-
-        if '.csv' in fileUrl:
-            # create the right strings for the new filename
-            title = fileBlock.a.contents[0]
-            title = title.upper()
-            csvYr = title.split(' ')[-1]
-            csvMth = title.split(' ')[-2][:3]
-            csvMth = convert_mth_strings(csvMth);
-            filename = entity_id + "_" + csvYr + "_" + csvMth
-            todays_date = str(datetime.now())
-            scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date})
+    for mthPageLink in mthPageLinks:
+        mthPageUrl = 'http://www.cumbria.gov.uk' + mthPageLink.a['href']
+        html3 = urllib2.urlopen(mthPageUrl)
+        soup3 = BeautifulSoup(html2)
+        print soup3
+        
+        '''
+        for filePageLink in filePageLinks:
+            
+            if '.csv' in fileUrl:
+                # create the right strings for the new filename
+                title = fileBlock.a.contents[0]
+                title = title.upper()
+                csvYr = title.split(' ')[-1]
+                csvMth = title.split(' ')[-2][:3]
+                csvMth = convert_mth_strings(csvMth);
+                filename = entity_id + "_" + csvYr + "_" + csvMth
+                todays_date = str(datetime.now())
+                scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date})
 
             print filename
+        '''
