@@ -48,6 +48,8 @@ for yrPageLink in yrPageLinks:
                 # create the right strings for the new filename
                 title = fileLink.contents[0]
                 if 'Trade Suppliers' in title:
+                    print title
+                    
                     title = title.upper()
                     csvYr = title.split(' ')[-1]
                     csvMth = title.split(' ')[-2][:3]
