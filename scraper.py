@@ -8,13 +8,12 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 # Set up variables
-entity_id = "E5031_BLBC_gov"
-url = "https://www.barnet.gov.uk/citizen-home/council-and-democracy/finance-and-funding/financial-statements-budgets-and-variance-reports/expenditure-over-gbp-500"
+entity_id = "E0920_CCC_gov"
+url = "http://www.cumbria.gov.uk/managingyourcouncil/councilspend500/default.asp"
 
 # Set up functions
 def convert_mth_strings(mth_string):
-    month_numbers = {'JAN': '01', 'FEB': '02', 'MAR': '03', 'APR': '04', 'MAY': '05', 'JUN': '06', 'JUL': '07',
-                     'AUG': '08', 'SEP': '09', 'OCT': '10', 'NOV': '11', 'DEC': '12'}
+    month_numbers = {'JAN': '01', 'FEB': '02', 'MAR': '03', 'APR': '04', 'MAY': '05', 'JUN': '06', 'JUL': '07', 'AUG': '08', 'SEP': '09', 'OCT': '10', 'NOV': '11', 'DEC': '12'}
     # loop through the months in our dictionary
     for k, v in month_numbers.items():
         #  then replace the word with the number
