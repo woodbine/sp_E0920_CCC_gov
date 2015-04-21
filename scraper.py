@@ -40,7 +40,7 @@ for yrPageLink in yrPageLinks:
         html3 = urllib2.urlopen(mthPageUrl)
         soup3 = BeautifulSoup(html3)
         tableBlock = soup3.find('div',{'class':'ccc-full-width-content'})
-        title = tableBlock.find('h1').contents[0]
+        title = tableBlock.h1.contents[0]
         fileLinks = tableBlock.findAll('a',href=True)
         
         for fileLink in fileLinks:
