@@ -116,8 +116,10 @@ for yrPageLink in yrPageLinks:
                 fileUrl = 'http://www.cumbria.gov.uk' + fileLink['href']
             else:
                 fileUrl = fileLink['href']
-            if '.csv' in fileUrl: 
-                if 'Trade' in fileLink.contents[0]:
+            if '.csv' in fileUrl or '.xlsx' in fileUrl or '.xls' in fileUrl:
+                if 'OCT' in title:
+                    continue
+                if 'Trade' in fileLink.text or 'TRADE' in fileLink.text or 'trade' in fileLink.text and ('20' in fileLink.text and 'SUPP' in fileLink.text or 'Supp' in fileLink.text):
                     title = title.upper()
                     csvYr = title.split(' ')[-1]
                     csvMth = title.split(' ')[-2][:3]
